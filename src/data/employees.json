@@ -1,0 +1,239 @@
+{
+  "employees": {
+    "adrian_demianiw": {
+      "id": "adrian_demianiw",
+      "name": "Adrian Demianiw",
+      "photo": "assets/mitarbeiterfotos/Adrian_Demianiw.jpg",
+      "description": "Der kreative Kopf mit dem Blick fürs Detail.",
+      "category": "Design-Legende",
+      "averageRating": 4.8,
+      "ratingCount": 125
+    },
+    "anna_bezrucencova": {
+      "id": "anna_bezrucencova",
+      "name": "Anna Bezrucencova",
+      "photo": "assets/mitarbeiterfotos/Anna_Bezrucencova.jpg",
+      "description": "Organisationstalent und Workshop-Meisterin.",
+      "category": "Workshop-Legende",
+      "averageRating": 4.9,
+      "ratingCount": 203
+    },
+    "benjamin_volke": {
+      "id": "benjamin_volke",
+      "name": "Benjamin Volke",
+      "photo": "assets/mitarbeiterfotos/Benjamin_Volke.jpg",
+      "description": "Technik-Guru mit unendlicher Geduld.",
+      "category": "Technik-Skills",
+      "averageRating": 4.7,
+      "ratingCount": 187
+    },
+    "christian_kornblum": {
+      "id": "christian_kornblum",
+      "name": "Christian Kornblum",
+      "photo": "assets/mitarbeiterfotos/Christian_Kornblum.jpg",
+      "description": "Der strategische Denker mit Weitblick.",
+      "category": "Strategie-Meister",
+      "averageRating": 4.6,
+      "ratingCount": 98
+    },
+    "claudia": {
+      "id": "claudia",
+      "name": "Claudia",
+      "photo": "assets/mitarbeiterfotos/Claudia.jpg",
+      "description": "Die heimliche Chefin hinter den Kulissen.",
+      "category": "Community-Vibes",
+      "averageRating": 4.9,
+      "ratingCount": 312
+    },
+    "david_krauss": {
+      "id": "david_krauss",
+      "name": "David Krauss",
+      "photo": "assets/mitarbeiterfotos/David_Krauss.jpg",
+      "description": "Kreativität pur - immer eine Idee voraus.",
+      "category": "Innovations-Motor",
+      "averageRating": 4.5,
+      "ratingCount": 76
+    },
+    "emily_breihof": {
+      "id": "emily_breihof",
+      "name": "Emily Breihof",
+      "photo": "assets/mitarbeiterfotos/Emily_Breihof.jpeg",
+      "description": "Junges Talent mit frischem Blick.",
+      "category": "Newcomer-Star",
+      "averageRating": 4.8,
+      "ratingCount": 54
+    },
+    "francesca_simonetta": {
+      "id": "francesca_simonetta",
+      "name": "Francesca Simonetta",
+      "photo": "assets/mitarbeiterfotos/Francesca_Simonetta.jpg",
+      "description": "Internationaler Charme und Expertise.",
+      "category": "Global Player",
+      "averageRating": 4.7,
+      "ratingCount": 142
+    },
+    "jakob_klenk": {
+      "id": "jakob_klenk",
+      "name": "Jakob Klenk",
+      "photo": "assets/mitarbeiterfotos/Jakob_Klenk.jpg",
+      "description": "Der Analytiker mit Präzisionsanspruch.",
+      "category": "Analyse-Profi",
+      "averageRating": 4.4,
+      "ratingCount": 89
+    },
+    "jan_trense": {
+      "id": "jan_trense",
+      "name": "Jan Trense",
+      "photo": "assets/mitarbeiterfotos/Jan_Trense.jpg",
+      "description": "Der Macher - Packt an und macht's einfach.",
+      "category": "Macher-Typ",
+      "averageRating": 4.9,
+      "ratingCount": 245
+    },
+    "juergen_scheible": {
+      "id": "juergen_scheible",
+      "name": "Jürgen Scheible",
+      "photo": "assets/mitarbeiterfotos/Jürgen_Scheible.jpg",
+      "description": "Erfahrung trifft auf moderne Ideen.",
+      "category": "Weise Eule",
+      "averageRating": 4.6,
+      "ratingCount": 113
+    },
+    "kevin_schulz": {
+      "id": "kevin_schulz",
+      "name": "Kevin Schulz",
+      "photo": "assets/mitarbeiterfotos/Kevin_Schulz.jpg",
+      "description": "Technik-Begeisterter mit Leidenschaft.",
+      "category": "Tech-Enthusiast",
+      "averageRating": 4.5,
+      "ratingCount": 67
+    },
+    "lilian_heber": {
+      "id": "lilian_heber",
+      "name": "Lilian Heber",
+      "photo": "assets/mitarbeiterfotos/Lilian_Heber.jpg",
+      "description": "Kreativität und Struktur in Harmonie.",
+      "category": "Balance-Künstlerin",
+      "averageRating": 4.8,
+      "ratingCount": 156
+    },
+    "louis_hagmann": {
+      "id": "louis_hagmann",
+      "name": "Louis Hagmann",
+      "photo": "assets/mitarbeiterfotos/Louis_Hagmann.jpg",
+      "description": "Junges Talent mit großer Zukunft.",
+      "category": "Zukunfts-Hoffnung",
+      "averageRating": 4.7,
+      "ratingCount": 42
+    },
+    "luis_guni": {
+      "id": "luis_guni",
+      "name": "Luis Guni",
+      "photo": "assets/mitarbeiterfotos/Luis_Guni.jpg",
+      "description": "Der Netzwerker mit vielen Kontakten.",
+      "category": "Netzwerk-Profi",
+      "averageRating": 4.3,
+      "ratingCount": 95
+    },
+    "nina_baum": {
+      "id": "nina_baum",
+      "name": "Nina Baum",
+      "photo": "assets/mitarbeiterfotos/Nina_Baum.jpg",
+      "description": "Kommunikationstalent mit Charme.",
+      "category": "Kommunikations-Profi",
+      "averageRating": 4.9,
+      "ratingCount": 234
+    },
+    "paul_heinl": {
+      "id": "paul_heinl",
+      "name": "Paul Heinl",
+      "photo": "assets/mitarbeiterfotos/Paul_Heinl.jpg",
+      "description": "Der Problemlöser mit kühlem Kopf.",
+      "category": "Problemlöser",
+      "averageRating": 4.6,
+      "ratingCount": 178
+    },
+    "peter_kornblum": {
+      "id": "peter_kornblum",
+      "name": "Peter Kornblum",
+      "photo": "assets/mitarbeiterfotos/Peter_Kornblum.jpg",
+      "description": "Der erfahrene Kapitän des Teams.",
+      "category": "Team-Kapitän",
+      "averageRating": 4.8,
+      "ratingCount": 312
+    },
+    "rebecca_vielsack": {
+      "id": "rebecca_vielsack",
+      "name": "Rebecca Vielsack",
+      "photo": "assets/mitarbeiterfotos/Rebecca_Vielsack.jpg",
+      "description": "Kreativität und Organisation vereint.",
+      "category": "Multitalent",
+      "averageRating": 4.7,
+      "ratingCount": 165
+    }
+  },
+  "categories": {
+    "coolness": {
+      "id": "coolness",
+      "key": "coolness",
+      "title": "Coolness-Faktor",
+      "description": "Wie cool ist diese Person?",
+      "icon": "sparkles",
+      "maxValue": 5
+    },
+    "workshop_legend": {
+      "id": "workshop_legend",
+      "key": "workshop_legend",
+      "title": "Workshop-Legendenstatus",
+      "description": "Wie gut sind die Workshops dieser Person?",
+      "icon": "trophy",
+      "maxValue": 5
+    },
+    "tech_skills": {
+      "id": "tech_skills",
+      "key": "tech_skills",
+      "title": "Technik-Skills",
+      "description": "Wie gut sind die technischen Fähigkeiten?",
+      "icon": "cog",
+      "maxValue": 5
+    },
+    "chaos_potential": {
+      "id": "chaos_potential",
+      "key": "chaos_potential",
+      "title": "Chaos-Potenzial",
+      "description": "Wie viel Chaos bringt diese Person mit?",
+      "icon": "zap",
+      "maxValue": 5
+    },
+    "community_vibes": {
+      "id": "community_vibes",
+      "key": "community_vibes",
+      "title": "Community-Vibes",
+      "description": "Wie gut kommt die Person in der Community an?",
+      "icon": "heart",
+      "maxValue": 5
+    }
+  },
+  "awards": {
+    "workshop_legend": {
+      "title": "Workshop-Legende",
+      "description": "Für herausragende Workshops und Schulungen."
+    },
+    "design_master": {
+      "title": "Design-Meister",
+      "description": "Für herausragendes Design und Kreativität."
+    },
+    "tech_guru": {
+      "title": "Technik-Guru",
+      "description": "Für technisches Know-how und Problemlösungen."
+    },
+    "community_hero": {
+      "title": "Community-Held",
+      "description": "Für besonderes Engagement in der Community."
+    },
+    "chaos_champion": {
+      "title": "Chaos-Champion",
+      "description": "Für die Person, die am meisten Chaos verbreitet (positiv gemeint!)."
+    }
+  }
+}

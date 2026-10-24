@@ -1,0 +1,206 @@
+/* ============================================
+   Employee Components - Styles
+   ============================================ */
+
+/* Employee Grid */
+.employee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-md);
+}
+
+/* Employee Card */
+.employee-card {
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.employee-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-cyan);
+}
+
+.employee-card__content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.employee-card__avatar {
+  flex-shrink: 0;
+}
+
+.employee-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.employee-card__name {
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.employee-card__category {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.employee-card__rating {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.employee-card__rating-value {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-cyan);
+}
+
+.employee-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+.employee-card__stats {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.employee-card__stat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.employee-card__stat svg {
+  width: 12px;
+  height: 12px;
+  color: var(--color-cyan);
+}
+
+/* Rating Form */
+.rating-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.rating-form__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-md);
+}
+
+.rating-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.rating-form__select {
+  width: 100%;
+}
+
+.rating-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Rating Selector */
+.rating-selector {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.rating-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.rating-option:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-surface-hover);
+}
+
+.rating-option.selected {
+  border-color: var(--color-cyan);
+  background: var(--color-cyan-light);
+}
+
+.rating-option__label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .employee-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .employee-card__content {
+    flex-wrap: wrap;
+  }
+  
+  .employee-card__info {
+    width: 100%;
+    order: 1;
+  }
+  
+  .employee-card__rating {
+    width: 100%;
+    order: 2;
+    justify-content: center;
+    margin-top: var(--spacing-xs);
+  }
+  
+  .employee-card__footer {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .rating-selector {
+    flex-direction: column;
+  }
+  
+  .rating-option {
+    width: 100%;
+  }
+  
+  .rating-form__actions {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: stretch;
+  }
+  
+  .rating-form__actions .button {
+    width: 100%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .employee-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
