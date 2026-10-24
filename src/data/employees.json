@@ -5,18 +5,18 @@
       "name": "Adrian Demianiw",
       "photo": "assets/mitarbeiterfotos/Adrian_Demianiw.jpg",
       "description": "Der kreative Kopf mit dem Blick fürs Detail.",
-      "category": "Design-Legende",
-      "averageRating": 4.8,
-      "ratingCount": 125
+      "category": "Programmierer-Legende",
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "anna_bezrucencova": {
       "id": "anna_bezrucencova",
       "name": "Anna Bezrucencova",
       "photo": "assets/mitarbeiterfotos/Anna_Bezrucencova.jpg",
-      "description": "Organisationstalent und Workshop-Meisterin.",
-      "category": "Workshop-Legende",
-      "averageRating": 4.9,
-      "ratingCount": 203
+      "description": "Ist wie Louis.",
+      "category": ".",
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "benjamin_volke": {
       "id": "benjamin_volke",
@@ -24,8 +24,8 @@
       "photo": "assets/mitarbeiterfotos/Benjamin_Volke.jpg",
       "description": "Technik-Guru mit unendlicher Geduld.",
       "category": "Technik-Skills",
-      "averageRating": 4.7,
-      "ratingCount": 187
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "christian_kornblum": {
       "id": "christian_kornblum",
@@ -33,8 +33,8 @@
       "photo": "assets/mitarbeiterfotos/Christian_Kornblum.jpg",
       "description": "Der strategische Denker mit Weitblick.",
       "category": "Strategie-Meister",
-      "averageRating": 4.6,
-      "ratingCount": 98
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "claudia": {
       "id": "claudia",
@@ -42,8 +42,8 @@
       "photo": "assets/mitarbeiterfotos/Claudia.jpg",
       "description": "Die heimliche Chefin hinter den Kulissen.",
       "category": "Community-Vibes",
-      "averageRating": 4.9,
-      "ratingCount": 312
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "david_krauss": {
       "id": "david_krauss",
@@ -51,8 +51,8 @@
       "photo": "assets/mitarbeiterfotos/David_Krauss.jpg",
       "description": "Kreativität pur - immer eine Idee voraus.",
       "category": "Innovations-Motor",
-      "averageRating": 4.5,
-      "ratingCount": 76
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "emily_breihof": {
       "id": "emily_breihof",
@@ -60,8 +60,8 @@
       "photo": "assets/mitarbeiterfotos/Emily_Breihof.jpeg",
       "description": "Junges Talent mit frischem Blick.",
       "category": "Newcomer-Star",
-      "averageRating": 4.8,
-      "ratingCount": 54
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "francesca_simonetta": {
       "id": "francesca_simonetta",
@@ -69,8 +69,8 @@
       "photo": "assets/mitarbeiterfotos/Francesca_Simonetta.jpg",
       "description": "Internationaler Charme und Expertise.",
       "category": "Global Player",
-      "averageRating": 4.7,
-      "ratingCount": 142
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "jakob_klenk": {
       "id": "jakob_klenk",
@@ -78,8 +78,8 @@
       "photo": "assets/mitarbeiterfotos/Jakob_Klenk.jpg",
       "description": "Der Analytiker mit Präzisionsanspruch.",
       "category": "Analyse-Profi",
-      "averageRating": 4.4,
-      "ratingCount": 89
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "jan_trense": {
       "id": "jan_trense",
@@ -87,8 +87,8 @@
       "photo": "assets/mitarbeiterfotos/Jan_Trense.jpg",
       "description": "Der Macher - Packt an und macht's einfach.",
       "category": "Macher-Typ",
-      "averageRating": 4.9,
-      "ratingCount": 245
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "juergen_scheible": {
       "id": "juergen_scheible",
@@ -96,8 +96,8 @@
       "photo": "assets/mitarbeiterfotos/Jürgen_Scheible.jpg",
       "description": "Erfahrung trifft auf moderne Ideen.",
       "category": "Weise Eule",
-      "averageRating": 4.6,
-      "ratingCount": 113
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "kevin_schulz": {
       "id": "kevin_schulz",
@@ -105,8 +105,8 @@
       "photo": "assets/mitarbeiterfotos/Kevin_Schulz.jpg",
       "description": "Technik-Begeisterter mit Leidenschaft.",
       "category": "Tech-Enthusiast",
-      "averageRating": 4.5,
-      "ratingCount": 67
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "lilian_heber": {
       "id": "lilian_heber",
@@ -114,17 +114,17 @@
       "photo": "assets/mitarbeiterfotos/Lilian_Heber.jpg",
       "description": "Kreativität und Struktur in Harmonie.",
       "category": "Balance-Künstlerin",
-      "averageRating": 4.8,
-      "ratingCount": 156
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "louis_hagmann": {
       "id": "louis_hagmann",
       "name": "Louis Hagmann",
       "photo": "assets/mitarbeiterfotos/Louis_Hagmann.jpg",
-      "description": "Junges Talent mit großer Zukunft.",
-      "category": "Zukunfts-Hoffnung",
-      "averageRating": 4.7,
-      "ratingCount": 42
+      "description": "Kann Garnichts mit kleiner Zukunft.",
+      "category": "Keine-Hoffnung",
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "luis_guni": {
       "id": "luis_guni",
@@ -132,8 +132,8 @@
       "photo": "assets/mitarbeiterfotos/Luis_Guni.jpg",
       "description": "Der Netzwerker mit vielen Kontakten.",
       "category": "Netzwerk-Profi",
-      "averageRating": 4.3,
-      "ratingCount": 95
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "nina_baum": {
       "id": "nina_baum",
@@ -141,8 +141,8 @@
       "photo": "assets/mitarbeiterfotos/Nina_Baum.jpg",
       "description": "Kommunikationstalent mit Charme.",
       "category": "Kommunikations-Profi",
-      "averageRating": 4.9,
-      "ratingCount": 234
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "paul_heinl": {
       "id": "paul_heinl",
@@ -150,8 +150,8 @@
       "photo": "assets/mitarbeiterfotos/Paul_Heinl.jpg",
       "description": "Der Problemlöser mit kühlem Kopf.",
       "category": "Problemlöser",
-      "averageRating": 4.6,
-      "ratingCount": 178
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "peter_kornblum": {
       "id": "peter_kornblum",
@@ -159,8 +159,8 @@
       "photo": "assets/mitarbeiterfotos/Peter_Kornblum.jpg",
       "description": "Der erfahrene Kapitän des Teams.",
       "category": "Team-Kapitän",
-      "averageRating": 4.8,
-      "ratingCount": 312
+      "averageRating": 0,
+      "ratingCount": 0
     },
     "rebecca_vielsack": {
       "id": "rebecca_vielsack",
@@ -168,8 +168,8 @@
       "photo": "assets/mitarbeiterfotos/Rebecca_Vielsack.jpg",
       "description": "Kreativität und Organisation vereint.",
       "category": "Multitalent",
-      "averageRating": 4.7,
-      "ratingCount": 165
+      "averageRating": 0,
+      "ratingCount": 0
     }
   },
   "categories": {

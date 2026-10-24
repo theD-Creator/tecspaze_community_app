@@ -7,12 +7,14 @@
 
 /* Import Component Styles */
 @import '../components/ui/styles.css';
+@import '../components/layout/styles.css';
 @import '../components/feed/styles.css';
 @import '../components/employees/styles.css';
 @import '../components/ratings/styles.css';
 @import '../components/navigation/styles.css';
 
 /* Page Styles */
+@import '../pages/Auth/styles.css';
 @import '../pages/Home/styles.css';
 @import '../pages/Community/styles.css';
 @import '../pages/Employees/styles.css';

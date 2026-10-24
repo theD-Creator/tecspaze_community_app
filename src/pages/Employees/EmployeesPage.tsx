@@ -247,6 +247,9 @@ export const EmployeesPage: React.FC = () => {
         value,
         comment,
       })
+      // Karte/Kategorien direkt aktualisieren (ein Query im Remote-Modus)
+      await fetchEmployees()
+      await fetchRatings()
     }
     setRatingModalEmployee(null)
   }
@@ -304,7 +307,7 @@ export const EmployeesPage: React.FC = () => {
 
         {/* Employees Grid */}
         {loading ? (
-          <div className="animate-pulse">Loading...</div>
+          <div className="animate-pulse text-muted">{t('common.loading')}</div>
         ) : filteredEmployees.length > 0 ? (
           <div className="employees-grid">
             {filteredEmployees.map((employee) => (
@@ -337,7 +340,7 @@ export const EmployeesPage: React.FC = () => {
                   </div>
                   <div className="employee-card__footer">
                     <div className="employee-card__rating-count">
-                      {employee.ratingCount} {t('employees.ratings')}
+                      {t('employees.ratings', { count: employee.ratingCount })}
                     </div>
                     <Button
                       variant="ghost"
@@ -357,6 +360,7 @@ export const EmployeesPage: React.FC = () => {
         ) : (
           <Card className="empty-state">
             <Card.Body>
+              <div className="empty-state__icon">🔍</div>
               <h3 className="empty-state__title">{t('employees.noEmployees')}</h3>
             </Card.Body>
           </Card>

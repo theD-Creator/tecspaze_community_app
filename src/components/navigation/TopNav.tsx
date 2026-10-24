@@ -1,13 +1,15 @@
 import React from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-
-// Logo component
+import { Avatar } from '../ui/Avatar'
+import { useAuth } from '../../hooks/useAuth'
+// Brand logo (white wordmark with claim, from the assets folder)
 const Logo: React.FC = () => (
-  <div className="logo">
-    <span className="logo__text">TECSPAZE</span>
-    <span className="logo__subtext">Community</span>
-  </div>
+  <img
+    className="logo"
+    src="/images/logos/tecspaze-claim-lok-weiss.svg"
+    alt="TECSPAZE Community"
+  />
 )
 
 // Notification icon
@@ -47,20 +49,35 @@ export const TopNav: React.FC<TopNavProps> = ({
   onNotificationClick,
 }) => {
   const { t } = useTranslation()
+  const { user } = useAuth()
   const location = useLocation()
   const isAuthPage = location.pathname === '/login' || location.pathname === '/register'
 
+  // Slim header on auth pages: logo links back to the community
   if (isAuthPage) {
-    return null
+    return (
+      <header className="top-nav top-nav--slim">
+        <div className="top-nav__left">
+          <Link to="/" className="top-nav__logo" aria-label="TECSPAZE – Startseite">
+            <Logo />
+          </Link>
+        </div>
+        <div className="top-nav__right">
+          <Link to="/" className="top-nav__auth-back">
+            {t('auth.backToCommunity')}
+          </Link>
+        </div>
+      </header>
+    )
   }
 
   return (
     <header className="top-nav">
       <div className="top-nav__left">
-        <button className="top-nav__menu" onClick={onMenuClick} aria-label={t('common.search')}>
+        <button className="top-nav__menu" onClick={onMenuClick} aria-label={t('navigation.home')}>
           <MenuIcon />
         </button>
-        <Link to="/" className="top-nav__logo">
+        <Link to="/" className="top-nav__logo" aria-label="TECSPAZE – Startseite">
           <Logo />
         </Link>
       </div>
@@ -71,8 +88,14 @@ export const TopNav: React.FC<TopNavProps> = ({
         <button className="top-nav__icon" onClick={onNotificationClick} aria-label={t('profile.settings.notifications')}>
           <NotificationIcon />
         </button>
-        <Link to="/profile" className="top-nav__profile">
-          <div className="top-nav__avatar" />
+        <Link to="/profile" className="top-nav__profile" aria-label={t('navigation.profile')}>
+          <Avatar
+            src={user?.photo || undefined}
+            alt={user?.displayName || t('common.user')}
+            size="sm"
+            status={user ? 'online' : undefined}
+            className="top-nav__avatar"
+          />
         </Link>
       </div>
     </header>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { TopNav, BottomNav } from './components/navigation'
 import { HomePage } from './pages/Home'
 import { CommunityPage } from './pages/Community'
@@ -14,6 +15,7 @@ import { useAuth } from './hooks/useAuth'
 import './styles/index.css'
 
 const App: React.FC = () => {
+  const { t } = useTranslation()
   const { user, loading, checkAuth } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -25,13 +27,16 @@ const App: React.FC = () => {
   if (loading) {
     return (
       <div className="app-loading">
-        <div className="animate-pulse">Lädt...</div>
+        <img src="/images/logos/tecspaze-claim-lok-verlauf.svg" alt="TECSPAZE" className="app-loading__logo" />
+        <span className="app-loading__text animate-pulse">{t('common.loading')}</span>
       </div>
     )
   }
 
   return (
-    <Router>
+    <Router
+      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+    >
       <div className="app">
         {/* Top Navigation */}
         <TopNav onMenuClick={() => setMenuOpen(true)} />

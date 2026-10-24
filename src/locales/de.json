@@ -18,7 +18,8 @@
     "welcome": "Willkommen in der TECSPAZE Community!",
     "recentActivity": "Letzte Aktivitäten",
     "trendingPosts": "Beliebte Beiträge",
-    "topRated": "Top Bewertet"
+    "topRated": "Top Bewertet",
+    "noPosts": "Noch keine Beiträge – sei der Erste!"
   },
   "community": {
     "title": "Community",
@@ -30,7 +31,8 @@
       "newest": "Neueste",
       "popular": "Beliebt",
       "trending": "Im Trend"
-    }
+    },
+    "createPostDescription": "Verfasse den ersten Beitrag und starte das Gespräch!"
   },
   "posts": {
     "create": "Beitrag erstellen",
@@ -44,17 +46,17 @@
     "update": "Aktualisieren",
     "cancel": "Abbrechen",
     "confirmDelete": "Möchtest du diesen Beitrag wirklich löschen?",
-    "likes": "{{count}} Gefällt",
-    "likes_plural": "{{count}} Gefällt mir",
-    "comments": "{{count}} Kommentar",
-    "comments_plural": "{{count}} Kommentare",
     "by": "von {{author}}",
     "postedAt": "vor {{time}}",
     "addImage": "Bild hinzufügen",
     "removeImage": "Bild entfernen",
     "reportReason": "Grund für die Meldung",
     "reportPlaceholder": "Bitte beschreibe, warum du diesen Beitrag meldest...",
-    "reportSuccess": "Beitrag gemeldet. Danke für dein Feedback!"
+    "reportSuccess": "Beitrag gemeldet. Danke für dein Feedback!",
+    "likes_one": "{{count}} Gefällt",
+    "likes_other": "{{count}} Gefällt mir",
+    "comments_one": "{{count}} Kommentar",
+    "comments_other": "{{count}} Kommentare"
   },
   "comments": {
     "add": "Kommentar hinzufügen",
@@ -77,13 +79,13 @@
     "allCategories": "Alle Kategorien",
     "noEmployees": "Keine Mitarbeiter gefunden.",
     "rating": "Bewertung",
-    "ratings": "{{count}} Bewertung",
-    "ratings_plural": "{{count}} Bewertungen",
     "average": "Ø {{value}}/5",
     "viewProfile": "Profil ansehen",
     "rate": "Bewerten",
     "rateNow": "Jetzt bewerten",
-    "description": "Über {{name}}"
+    "description": "Über {{name}}",
+    "ratings_one": "{{count}} Bewertung",
+    "ratings_other": "{{count}} Bewertungen"
   },
   "employeeRating": {
     "title": "Bewertung abgeben",
@@ -130,7 +132,8 @@
       "likes": "Gefällt mir",
       "comments": "Kommentare",
       "ratings": "Bewertungen",
-      "joined": "Mitglied seit {{date}}"
+      "joined": "Mitglied seit {{date}}",
+      "memberSince": "Mitglied seit"
     },
     "settings": {
       "title": "Einstellungen",
@@ -151,6 +154,7 @@
     }
   },
   "auth": {
+    "backToCommunity": "‹ Zurück zur Community",
     "login": {
       "title": "Anmelden",
       "subtitle": "Willkommen zurück!",
@@ -179,11 +183,12 @@
       "confirmPassword": "Passwort bestätigen",
       "confirmPasswordPlaceholder": "Bestätige dein Passwort...",
       "submit": "Registrieren",
-      "alreadyHaveAccount": "Bereits ein Account? Anmelden",
+      "alreadyHaveAccount": "Bereits ein Account?",
       "agreeTerms": "Ich akzeptiere die Nutzungsbedingungen",
       "error": "Etwas ist schiefgelaufen. Bitte überprüfe deine Angaben.",
       "passwordMatchError": "Die Passwörter stimmen nicht überein.",
-      "weakPassword": "Das Passwort muss mindestens 6 Zeichen lang sein."
+      "weakPassword": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+      "success": "Account erstellt! Willkommen in der Community. 🎉"
     },
     "forgotPassword": {
       "title": "Passwort vergessen?",
@@ -217,13 +222,16 @@
     "more": "Mehr",
     "search": "Suchen",
     "filter": "Filtern",
-    "sort": "Sortieren",
+    "sort": "Sortiert nach",
     "submit": "Absenden",
     "success": "Erfolgreich!",
     "failed": "Fehlgeschlagen",
     "tryAgain": "Erneut versuchen",
     "optional": "Optional",
-    "required": "Erforderlich"
+    "required": "Erforderlich",
+    "about": "Über",
+    "name": "Name",
+    "user": "Benutzer"
   },
   "badges": {
     "workshop_legend": "Workshop-Legende",
@@ -244,7 +252,8 @@
     "duplicate": "Diese Ressource existiert bereits.",
     "rateLimit": "Zu viele Anfragen. Bitte warte einen Moment.",
     "server": "Serverfehler. Bitte versuche es später nochmal.",
-    "unknown": "Ein unbekannter Fehler ist aufgetreten."
+    "unknown": "Ein unbekannter Fehler ist aufgetreten.",
+    "supabaseNotConfigured": "Supabase ist noch nicht konfiguriert – Auth ist deaktiviert. Beiträge & Bewertungen funktionieren offline trotzdem."
   },
   "tooltips": {
     "like": "Gefällt mir",
@@ -260,18 +269,19 @@
   },
   "time": {
     "justNow": "gerade eben",
-    "minutesAgo": "vor {{count}} Minute",
-    "minutesAgo_plural": "vor {{count}} Minuten",
-    "hoursAgo": "vor {{count}} Stunde",
-    "hoursAgo_plural": "vor {{count}} Stunden",
-    "daysAgo": "vor {{count}} Tag",
-    "daysAgo_plural": "vor {{count}} Tagen",
-    "weeksAgo": "vor {{count}} Woche",
-    "weeksAgo_plural": "vor {{count}} Wochen",
-    "monthsAgo": "vor {{count}} Monat",
-    "monthsAgo_plural": "vor {{count}} Monaten",
-    "yearsAgo": "vor {{count}} Jahr",
-    "yearsAgo_plural": "vor {{count}} Jahren"
+    "newest": "Neueste",
+    "minutesAgo_one": "vor {{count}} Minute",
+    "minutesAgo_other": "vor {{count}} Minuten",
+    "hoursAgo_one": "vor {{count}} Stunde",
+    "hoursAgo_other": "vor {{count}} Stunden",
+    "daysAgo_one": "vor {{count}} Tag",
+    "daysAgo_other": "vor {{count}} Tagen",
+    "weeksAgo_one": "vor {{count}} Woche",
+    "weeksAgo_other": "vor {{count}} Wochen",
+    "monthsAgo_one": "vor {{count}} Monat",
+    "monthsAgo_other": "vor {{count}} Monaten",
+    "yearsAgo_one": "vor {{count}} Jahr",
+    "yearsAgo_other": "vor {{count}} Jahren"
   },
   "validation": {
     "required": "Dieses Feld ist erforderlich.",

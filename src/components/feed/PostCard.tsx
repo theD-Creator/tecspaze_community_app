@@ -122,13 +122,13 @@ export const PostCard: React.FC<PostCardProps> = ({
             >
               {hasLiked ? <HeartFilledIcon /> : <HeartIcon />}
               <span className="feed-post-card__stat-text">
-                {post.likeCount} {t('posts.likes')}
+                {t('posts.likes', { count: post.likeCount })}
               </span>
             </button>
             <button className="feed-post-card__stat" onClick={onComment}>
               <CommentIcon />
               <span className="feed-post-card__stat-text">
-                {post.commentCount} {t('posts.comments')}
+                {t('posts.comments', { count: post.commentCount })}
               </span>
             </button>
           </div>

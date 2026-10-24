@@ -23,14 +23,6 @@ const EyeOffIcon = () => (
   </svg>
 )
 
-// Arrow left icon
-const ArrowLeftIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <line x1="19" y1="12" x2="5" y2="12" />
-    <polyline points="12 19 5 12 12 5" />
-  </svg>
-)
-
 export const RegisterPage: React.FC = () => {
   const { t } = useTranslation()
   const { signUp, loading } = useAuth()
@@ -95,6 +87,11 @@ export const RegisterPage: React.FC = () => {
         <Card className="auth-card">
           <Card.Body>
             <div className="auth-header">
+              <img
+                src="/images/logos/tecspaze-claim-lok-verlauf.svg"
+                alt="TECSPAZE"
+                className="auth-logo"
+              />
               <h1 className="auth-title">{t('auth.register.title')}</h1>
               <p className="auth-subtitle text-secondary">{t('auth.register.subtitle')}</p>
             </div>
@@ -191,11 +188,11 @@ export const RegisterPage: React.FC = () => {
 
               <div className="auth-footer">
                 <p className="auth-footer-text">
-                  {t('auth.register.alreadyHaveAccount')}
+                  {t('auth.register.alreadyHaveAccount')}{' '}
+                  <Link to="/login" className="auth-footer-link">
+                    {t('auth.login.submit')}
+                  </Link>
                 </p>
-                <Link to="/login" className="auth-footer-link">
-                  <ArrowLeftIcon /> {t('auth.register.alreadyHaveAccount')}
-                </Link>
               </div>
             </form>
           </Card.Body>

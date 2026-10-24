@@ -296,7 +296,7 @@ export const ProfilePage: React.FC = () => {
                 <div className="profile-about__value">{user.email}</div>
               </div>
               <div className="profile-about__item">
-                <div className="profile-about__label">{t('profile.stats.joined', { date: stats.joined })}</div>
+                <div className="profile-about__label">{t('profile.stats.memberSince')}</div>
                 <div className="profile-about__value">
                   <CalendarIcon /> {formatDate(user.createdAt || '')}
                 </div>

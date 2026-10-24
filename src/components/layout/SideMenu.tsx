@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { clsx } from 'clsx'
 import { Button } from '../ui/Button'
+import { useAuth } from '../../hooks/useAuth'
 
 // Menu icon
 const CloseIcon = () => (
@@ -65,10 +66,18 @@ interface SideMenuProps {
 
 export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
   const { t, i18n } = useTranslation()
+  const { user, signOut } = useAuth()
+  const navigate = useNavigate()
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng)
     onClose()
+  }
+
+  const handleSignOut = async () => {
+    await signOut()
+    onClose()
+    navigate('/')
   }
 
   const menuItems = [
@@ -90,30 +99,43 @@ export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
       {/* Menu */}
       <aside className={clsx('side-menu', { 'side-menu--open': isOpen })}>
         <div className="side-menu__header">
-          <div className="side-menu__logo">
-            <span className="text-xl font-bold text-cyan">TECSPAZE</span>
-            <span className="text-xs text-muted">Community</span>
-          </div>
-          <button className="side-menu__close" onClick={onClose}>
+          <img
+            className="side-menu__logo"
+            src="/images/logos/tecspaze-claim-lok-verlauf.svg"
+            alt="TECSPAZE Community"
+          />
+          <button className="side-menu__close" onClick={onClose} aria-label="Menü schließen">
             <CloseIcon />
           </button>
         </div>
 
         <nav className="side-menu__nav">
           {menuItems.map((item) => (
-            <Link
+            <NavLink
               key={item.to}
               to={item.to}
-              className="side-menu__item"
+              end={item.to === '/'}
+              className={({ isActive }) =>
+                clsx('side-menu__item', { 'side-menu__item--active': isActive })
+              }
               onClick={item.onClick}
             >
               <span className="side-menu__icon">{item.icon}</span>
               <span className="side-menu__label">{item.label}</span>
-            </Link>
+            </NavLink>
           ))}
         </nav>
 
         <div className="side-menu__footer">
+          {user && (
+            <div className="side-menu__user">
+              <img src={user.photo || '/tecspaze-icon.svg'} alt="" className="side-menu__user-photo" />
+              <div>
+                <div className="side-menu__user-name">{user.displayName}</div>
+                <div className="side-menu__user-mail">{user.email}</div>
+              </div>
+            </div>
+          )}
           <div className="side-menu__section">
             <div className="side-menu__section-title">{t('profile.settings.language')}</div>
             <div className="side-menu__language-options">
@@ -141,6 +163,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
             size="sm"
             className="w-full justify-start side-menu__logout"
             leftIcon={<LogoutIcon />}
+            onClick={handleSignOut}
           >
             {t('navigation.logout')}
           </Button>

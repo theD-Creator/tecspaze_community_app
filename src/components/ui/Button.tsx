@@ -19,6 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
   rightIcon,
   className,
   disabled,
+  type = 'button', // Default "button": verhindert versehentliche Form-Submits (z.B. OAuth-Buttons im Login-Formular)
   ...props
 }) => {
   const baseClasses = clsx(
@@ -33,7 +34,7 @@ export const Button: React.FC<ButtonProps> = ({
   )
 
   return (
-    <button className={baseClasses} disabled={disabled || isLoading} {...props}>
+    <button type={type} className={baseClasses} disabled={disabled || isLoading} {...props}>
       {isLoading ? (
         <span className="button__spinner" aria-hidden="true" />
       ) : (

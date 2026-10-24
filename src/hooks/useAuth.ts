@@ -1,7 +1,12 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import i18n from '../services/i18n'
+import { supabase, isSupabaseConfigured } from '../services/supabase'
 import { User } from '../types'
-import { supabase } from '../services/supabase'
+
+// Friendly error shown when Supabase credentials are missing
+const offlineAuthError = () =>
+  isSupabaseConfigured ? 'Authentication failed' : i18n.t('errors.supabaseNotConfigured')
 
 interface AuthState {
   user: User | null
@@ -39,6 +44,11 @@ export const useAuthStore = create<AuthState>()(
 
       checkAuth: async () => {
         set({ loading: true, error: null })
+        if (!isSupabaseConfigured) {
+          // Offline mode: no auth backend available yet
+          set({ user: null, loading: false })
+          return
+        }
         try {
           const { data: { user }, error } = await supabase.auth.getUser()
           
@@ -60,6 +70,10 @@ export const useAuthStore = create<AuthState>()(
 
       signIn: async (email: string, password: string) => {
         set({ loading: true, error: null })
+        if (!isSupabaseConfigured) {
+          set({ loading: false })
+          return { error: offlineAuthError() }
+        }
         try {
           const { data, error } = await supabase.auth.signInWithPassword({
             email,
@@ -73,6 +87,13 @@ export const useAuthStore = create<AuthState>()(
           if (data.user) {
             const profile = await getUserProfile(data.user.id)
             set({ user: profile || convertSupabaseUser(data.user), loading: false })
+
+            // Last login im Profil aktualisieren (RLS erlaubt eigene Zeile)
+            await supabase
+              .from('profiles')
+              .update({ last_login_at: new Date().toISOString() })
+              .eq('id', data.user.id)
+
             return {}
           }
 
@@ -85,6 +106,10 @@ export const useAuthStore = create<AuthState>()(
 
       signUp: async (email: string, password: string, displayName: string) => {
         set({ loading: true, error: null })
+        if (!isSupabaseConfigured) {
+          set({ loading: false })
+          return { error: offlineAuthError() }
+        }
         try {
           const { data, error } = await supabase.auth.signUp({
             email,
@@ -101,15 +126,14 @@ export const useAuthStore = create<AuthState>()(
           }
 
           if (data.user) {
-            // Create profile in database
+            // Neu registrierte Users: Upsert statt Insert – der DB-Trigger
+            // (handle_new_user) legt das Profil bereits an, das darf nicht crashed.
             const { error: profileError } = await supabase
               .from('profiles')
-              .insert([{
-                id: data.user.id,
-                email,
-                display_name: displayName,
-                created_at: new Date().toISOString(),
-              }])
+              .upsert(
+                [{ id: data.user.id, email, display_name: displayName }],
+                { onConflict: 'id' }
+              )
 
             if (profileError) {
               console.error('Failed to create profile:', profileError)
@@ -127,6 +151,10 @@ export const useAuthStore = create<AuthState>()(
       },
 
       signOut: async () => {
+        if (!isSupabaseConfigured) {
+          set({ user: null, loading: false })
+          return
+        }
         set({ loading: true })
         try {
           const { error } = await supabase.auth.signOut()
@@ -140,6 +168,10 @@ export const useAuthStore = create<AuthState>()(
 
       signInWithOAuth: async (provider: 'google' | 'github') => {
         set({ loading: true, error: null })
+        if (!isSupabaseConfigured) {
+          set({ loading: false })
+          return { error: offlineAuthError() }
+        }
         try {
           const { error } = await supabase.auth.signInWithOAuth({
             provider,
@@ -163,6 +195,9 @@ export const useAuthStore = create<AuthState>()(
       },
 
       resetPassword: async (email: string) => {
+        if (!isSupabaseConfigured) {
+          return { error: offlineAuthError() }
+        }
         try {
           const { error } = await supabase.auth.resetPasswordForEmail(email)
           if (error) {
@@ -179,11 +214,25 @@ export const useAuthStore = create<AuthState>()(
         if (!user) {
           return { error: 'No user authenticated' }
         }
+        if (!isSupabaseConfigured) {
+          // Optimistically update locally in offline mode
+          set({ user: { ...user, ...updates } })
+          return {}
+        }
 
         try {
+          // camelCase-Update (Partial<User>) → Tabellenspalten mappen (snake_case);
+          // E-Mail bewusst NICHT mappen – die gehört zur Auth, nicht zum Profil.
+          const dbUpdates: Record<string, unknown> = {}
+          if (updates.displayName !== undefined) dbUpdates.display_name = updates.displayName
+          if (updates.photo !== undefined) dbUpdates.photo = updates.photo
+          if (updates.bio !== undefined) dbUpdates.bio = updates.bio
+          if (updates.role !== undefined) dbUpdates.role = updates.role
+          if (updates.badges !== undefined) dbUpdates.badges = updates.badges
+
           const { error } = await supabase
             .from('profiles')
-            .update(updates)
+            .update(dbUpdates)
             .eq('id', user.id)
 
           if (error) {
@@ -278,16 +327,19 @@ const getUserProfile = async (userId: string): Promise<User | null> => {
       return null
     }
 
+    const email = data.email || ''
     return {
       id: data.id,
-      email: data.email,
-      displayName: data.display_name || data.email.split('@')[0],
+      email,
+      displayName: data.display_name || (email ? email.split('@')[0] : 'User'),
       photo: data.photo || null,
       bio: data.bio || null,
       createdAt: data.created_at || new Date().toISOString(),
       lastLoginAt: data.last_login_at || new Date().toISOString(),
       role: data.role as 'user' | 'moderator' | 'admin' || 'user',
       badges: data.badges || [],
+      verified: Boolean(data.verified),
+      bannedAt: data.banned_at || null,
     }
   } catch (err) {
     return null

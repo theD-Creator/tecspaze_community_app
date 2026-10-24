@@ -49,9 +49,9 @@ export const RatingStars: React.FC<RatingStarsProps> = ({
   onChange,
 }) => {
   const sizeClasses = {
-    sm: 'w-4 h-4',
-    md: 'w-5 h-5',
-    lg: 'w-6 h-6',
+    sm: 'rating-stars--sm',
+    md: 'rating-stars--md',
+    lg: 'rating-stars--lg',
   }
 
   const handleClick = (index: number) => {
@@ -66,43 +66,27 @@ export const RatingStars: React.FC<RatingStarsProps> = ({
     const partialValue = value % 1
 
     for (let i = 0; i < maxStars; i++) {
-      if (i < fullStars) {
+      const filled = i < fullStars
+      const partial = i === fullStars && hasPartial ? partialValue : undefined
+      const ariaLabel = `Bewertung: ${i + 1} von ${maxValue}`
+
+      if (!editable) {
+        // Static display: plain spans (never nest buttons)
         stars.push(
-          <button
-            key={i}
-            type="button"
-            className={clsx('rating-star-wrapper', sizeClasses[size])}
-            onClick={() => handleClick(i)}
-            disabled={!editable}
-            aria-label={`Bewertung: ${i + 1} von ${maxValue}`}
-          >
-            <StarIcon filled={true} />
-          </button>
-        )
-      } else if (i === fullStars && hasPartial) {
-        stars.push(
-          <button
-            key={i}
-            type="button"
-            className={clsx('rating-star-wrapper', sizeClasses[size])}
-            onClick={() => handleClick(i)}
-            disabled={!editable}
-            aria-label={`Bewertung: ${i + 1} von ${maxValue}`}
-          >
-            <StarIcon filled={false} partial={partialValue} />
-          </button>
+          <span key={i} className="rating-star-wrapper" role="presentation">
+            <StarIcon filled={filled} partial={partial} />
+          </span>
         )
       } else {
         stars.push(
           <button
             key={i}
             type="button"
-            className={clsx('rating-star-wrapper', sizeClasses[size])}
+            className="rating-star-wrapper"
             onClick={() => handleClick(i)}
-            disabled={!editable}
-            aria-label={`Bewertung: ${i + 1} von ${maxValue}`}
+            aria-label={ariaLabel}
           >
-            <StarIcon filled={false} />
+            <StarIcon filled={filled} partial={partial} />
           </button>
         )
       }

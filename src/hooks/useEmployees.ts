@@ -2,6 +2,9 @@ import { create } from 'zustand'
 import { Employee, EmployeeRating } from '../types'
 import rawEmployeesData from '../data/employees.json'
 import { localDb } from '../services/database'
+import { supabase, isSupabaseConfigured } from '../services/supabase'
+import { useAuthStore } from './useAuth'
+import { mapRating, RatingRow } from './useRatings'
 
 interface EmployeesState {
   employees: Employee[]
@@ -51,16 +54,54 @@ export const useEmployeesStore = create<EmployeesState>((set, get) => {
           })
         })
         
-        // Load actual ratings from database
-        for (const employee of employees) {
-          const ratings = await localDb.getRatings(employee.id)
-          employee.ratings = ratings
-          
-          // Recalculate average rating
-          if (ratings.length > 0) {
-            const total = ratings.reduce((sum, r) => sum + r.value, 0)
-            employee.averageRating = total / ratings.length
-            employee.ratingCount = ratings.length
+        // Load ratings — Remote-First (eine Query), IndexedDB-Fallback
+        try {
+          const ratingsByEmployee = new Map<string, EmployeeRating[]>()
+          if (isSupabaseConfigured) {
+            const { data, error } = await supabase
+              .from('employee_ratings')
+              .select('*')
+              .order('created_at', { ascending: false })
+              .limit(500)
+            if (error) throw error
+            const mapped = ((data ?? []) as unknown as RatingRow[]).map(mapRating)
+            for (const rating of mapped) {
+              ratingsByEmployee.set(rating.employeeId, [
+                ...(ratingsByEmployee.get(rating.employeeId) || []),
+                rating,
+              ])
+            }
+          } else {
+            for (const employee of employees) {
+              ratingsByEmployee.set(employee.id, await localDb.getRatings(employee.id))
+            }
+          }
+
+          for (const employee of employees) {
+            const ratings = ratingsByEmployee.get(employee.id) || []
+            employee.ratings = ratings
+
+            // Recalculate average rating when the user has rated before
+            if (ratings.length > 0) {
+              const total = ratings.reduce((sum, r) => sum + r.value, 0)
+              employee.averageRating = total / ratings.length
+              employee.ratingCount = ratings.length
+            }
+          }
+        } catch (err) {
+          console.warn('[useEmployees] Supabase-Ratings fehlgeschlagen – Fallback auf IndexedDB', err)
+          try {
+            for (const employee of employees) {
+              const ratings = await localDb.getRatings(employee.id)
+              employee.ratings = ratings
+              if (ratings.length > 0) {
+                const total = ratings.reduce((sum, r) => sum + r.value, 0)
+                employee.averageRating = total / ratings.length
+                employee.ratingCount = ratings.length
+              }
+            }
+          } catch (localErr) {
+            console.warn('[useEmployees] IndexedDB-Ratings fehlgeschlagen – nutze JSON-Baseline', localErr)
           }
         }
         
@@ -96,20 +137,47 @@ export const useEmployeesStore = create<EmployeesState>((set, get) => {
 
     rateEmployee: async (employeeId: string, rating: EmployeeRating) => {
       try {
-        await localDb.createRating(rating)
-        
-        // Update employee ratings
+        const user = useAuthStore.getState().user
+
+        if (isSupabaseConfigured && user) {
+          const { error } = await supabase
+            .from('employee_ratings')
+            .insert({
+              employee_id: employeeId,
+              user_id: user.id,
+              category: rating.category,
+              value: rating.value,
+              ...(rating.comment && { comment: rating.comment }),
+            })
+          if (error) throw error
+        } else {
+          await localDb.createRating(rating)
+        }
+
+        // Update employee ratings (je Quelle frisch nachrechnen)
         const employee = get().employees.find((e) => e.id === employeeId)
         if (employee) {
-          const ratings = await localDb.getRatings(employeeId)
+          let ratings: EmployeeRating[]
+          if (isSupabaseConfigured && user) {
+            const { data, error } = await supabase
+              .from('employee_ratings')
+              .select('*')
+              .eq('employee_id', employeeId)
+              .order('created_at', { ascending: false })
+            if (error) throw error
+            ratings = ((data ?? []) as unknown as RatingRow[]).map(mapRating)
+          } else {
+            ratings = await localDb.getRatings(employeeId)
+          }
+
           const total = ratings.reduce((sum, r) => sum + r.value, 0)
           const newRating = {
             ...employee,
             ratings,
-            averageRating: total / ratings.length,
+            averageRating: ratings.length > 0 ? total / ratings.length : 0,
             ratingCount: ratings.length,
           }
-          
+
           set((state) => ({
             employees: state.employees.map((e) =>
               e.id === employeeId ? newRating : e

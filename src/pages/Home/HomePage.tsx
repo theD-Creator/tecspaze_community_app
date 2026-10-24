@@ -8,21 +8,26 @@ import { usePosts } from '../../hooks/usePosts'
 import { useEmployees } from '../../hooks/useEmployees'
 import { useAuth } from '../../hooks/useAuth'
 
-// Fire icon
+// Brand logo (white wordmark from the assets folder — fits the dark UI)
+const BrandLogo: React.FC<{ className?: string }> = ({ className }) => (
+  <img
+    className={className}
+    src="/images/logos/tecspaze-claim-lok-weiss.svg"
+    alt="TECSPAZE"
+  />
+)
+
+// Flame icon
 const FireIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M12 2L2 7l10 13 10-13-10-5z" />
-    <path d="M12 2v13.5" />
-    <path d="M2 7l10 5 10-5" />
-    <path d="M2 17l10 5 10-5" />
-    <path d="M2 12l10 5 10-5" />
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z" />
   </svg>
 )
 
-// Star icon
-const StarIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-    <path d="M12 17.27L18.18 21l-1.64-7.01L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+// Like (heart) icon
+const HeartIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
   </svg>
 )
 
@@ -31,6 +36,13 @@ const ClockIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="12" cy="12" r="10" />
     <polyline points="12 6 12 12 16 14" />
+  </svg>
+)
+
+// Comment (speech bubble) icon
+const CommentCountIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
   </svg>
 )
 
@@ -46,17 +58,17 @@ export const HomePage: React.FC = () => {
   }, [fetchPosts, fetchEmployees])
 
   // Get top rated employees
-  const topEmployees = employees
+  const topEmployees = [...employees]
     .sort((a, b) => b.averageRating - a.averageRating)
     .slice(0, 3)
 
   // Get trending posts
-  const trendingPosts = posts
+  const trendingPosts = [...posts]
     .sort((a, b) => b.likeCount - a.likeCount)
     .slice(0, 3)
 
   // Get recent posts
-  const recentPosts = posts
+  const recentPosts = [...posts]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .slice(0, 3)
 
@@ -70,6 +82,9 @@ export const HomePage: React.FC = () => {
       const hours = Math.floor(diff / (1000 * 60 * 60))
       if (hours === 0) {
         const minutes = Math.floor(diff / (1000 * 60))
+        if (minutes <= 0) {
+          return t('time.justNow')
+        }
         return t('time.minutesAgo', { count: minutes })
       }
       return t('time.hoursAgo', { count: hours })
@@ -88,23 +103,31 @@ export const HomePage: React.FC = () => {
   return (
     <div className="page home-page">
       <div className="container">
-        {/* Welcome Section */}
+        {/* Welcome / Hero Section */}
         <section className="home-welcome py-8">
+          <div className="home-welcome__glow home-welcome__glow--pink" aria-hidden="true" />
+          <div className="home-welcome__glow home-welcome__glow--cyan" aria-hidden="true" />
           <div className="home-welcome__content">
+            <BrandLogo className="home-welcome__logo" />
             <h1 className="home-welcome__title">{t('home.welcome')}</h1>
             <p className="home-welcome__description text-secondary">
               {t('app.tagline')}
             </p>
-          </div>
-          {user && (
             <div className="home-welcome__actions">
               <Link to="/community">
                 <Button variant="primary" leftIcon={<FireIcon />}>
-                  {t('community.createPost')}
+                  {t('community.title')}
                 </Button>
               </Link>
+              {user && (
+                <Link to="/community">
+                  <Button variant="ghost" size="md">
+                    {t('posts.create')}
+                  </Button>
+                </Link>
+              )}
             </div>
-          )}
+          </div>
         </section>
 
         {/* Stats Section */}
@@ -203,10 +226,10 @@ export const HomePage: React.FC = () => {
                     </div>
                     <div className="post-card__stats">
                       <div className="post-card__stat">
-                        <StarIcon /> {post.likeCount}
+                        <HeartIcon /> {post.likeCount}
                       </div>
                       <div className="post-card__stat">
-                        {post.commentCount} {t('posts.comments')}
+                        <CommentCountIcon /> {post.commentCount}
                       </div>
                     </div>
                   </Card.Body>
@@ -216,7 +239,8 @@ export const HomePage: React.FC = () => {
           ) : (
             <Card className="empty-state">
               <Card.Body>
-                <p className="text-secondary">{t('community.noPosts')}</p>
+                <div className="empty-state__icon">💬</div>
+                <p className="empty-state__description text-secondary">{t('home.noPosts')}</p>
               </Card.Body>
             </Card>
           )}
@@ -250,7 +274,8 @@ export const HomePage: React.FC = () => {
           ) : (
             <Card className="empty-state">
               <Card.Body>
-                <p className="text-secondary">{t('home.noPosts')}</p>
+                <div className="empty-state__icon">✨</div>
+                <p className="empty-state__description text-secondary">{t('home.noPosts')}</p>
               </Card.Body>
             </Card>
           )}

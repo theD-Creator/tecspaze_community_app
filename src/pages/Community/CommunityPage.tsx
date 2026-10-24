@@ -7,6 +7,8 @@ import { Avatar } from '../../components/ui/Avatar'
 import { Input } from '../../components/ui/Input'
 import { Textarea } from '../../components/ui/Textarea'
 import { Select } from '../../components/ui/Select'
+import VerifiedBadge from '../../components/ui/VerifiedBadge'
+import PostComments from '../../components/community/PostComments'
 import { usePosts } from '../../hooks/usePosts'
 import { useAuth } from '../../hooks/useAuth'
 import { PostSortOrder } from '../../types'
@@ -95,6 +97,8 @@ export const CommunityPage: React.FC = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  /** Aufgeklappte Kommentarpanels: postId → true */
+  const [openComments, setOpenComments] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
     fetchPosts()
@@ -158,6 +162,9 @@ export const CommunityPage: React.FC = () => {
     
     if (hours < 1) {
       const minutes = Math.floor(diff / (1000 * 60))
+      if (minutes <= 0) {
+        return t('time.justNow')
+      }
       return t('time.minutesAgo', { count: minutes })
     }
     if (hours < 24) {
@@ -180,10 +187,14 @@ export const CommunityPage: React.FC = () => {
         {/* Header */}
         <div className="community-header">
           <h1 className="community-title">{t('community.title')}</h1>
-          {user && (
+          {user ? (
             <Button variant="primary" leftIcon={<PlusIcon />} onClick={() => setShowCreateForm(true)}>
               {t('posts.create')}
             </Button>
+          ) : (
+            <Link to="/login" className="community-guest-notice">
+              {t('community.guestNotice')}
+            </Link>
           )}
         </div>
 
@@ -247,7 +258,7 @@ export const CommunityPage: React.FC = () => {
 
         {/* Posts List */}
         {loading ? (
-          <div className="animate-pulse">Loading...</div>
+          <div className="animate-pulse text-muted">{t('common.loading')}</div>
         ) : sortedPosts.length > 0 ? (
           <div className="community-posts">
             {sortedPosts.map((post) => {
@@ -261,7 +272,10 @@ export const CommunityPage: React.FC = () => {
                       <Link to={`/profile`} className="community-post__author">
                         <Avatar src={post.authorPhoto} alt={post.authorName} size="md" />
                         <div className="community-post__author-info">
-                          <div className="community-post__author-name">{post.authorName}</div>
+                          <div className="community-post__author-name">
+                            {post.authorName}
+                            {post.authorVerified && <VerifiedBadge title={t('users.verified')} />}
+                          </div>
                           <div className="community-post__date">
                             <ClockIcon /> {formatDate(post.createdAt)}
                           </div>
@@ -290,23 +304,34 @@ export const CommunityPage: React.FC = () => {
                           className="community-post__stat"
                           onClick={() => handleLike(post.id)}
                           disabled={!user}
+                          title={user ? undefined : t('community.guestNotice')}
                         >
                           {getLikeButtonIcon(post.id)}
                           <span className="community-post__stat-text">
-                            {likeCount} {t('posts.likes')}
+                            {t('posts.likes', { count: likeCount })}
                           </span>
                         </button>
-                        <Link to={`#comments`} className="community-post__stat">
+                        <button
+                          type="button"
+                          className="community-post__stat"
+                          onClick={() => setOpenComments((o) => ({ ...o, [post.id]: !o[post.id] }))}
+                          aria-expanded={!!openComments[post.id]}
+                        >
                           <CommentIcon />
                           <span className="community-post__stat-text">
-                            {post.commentCount} {t('posts.comments')}
+                            {t('posts.comments', { count: post.commentCount })}
                           </span>
-                        </Link>
+                        </button>
                       </div>
                       <div className="community-post__share">
                         <Button variant="ghost" size="sm" leftIcon={<ShareIcon />} />
                       </div>
                     </div>
+
+                    {/* Kommentarbereich (aufklappbar) */}
+                    {!!openComments[post.id] && (
+                      <PostComments postId={post.id} />
+                    )}
                   </Card.Body>
                 </Card>
               )
@@ -315,6 +340,7 @@ export const CommunityPage: React.FC = () => {
         ) : (
           <Card className="empty-state">
             <Card.Body>
+              <div className="empty-state__icon">💬</div>
               <h3 className="empty-state__title">{t('community.noPosts')}</h3>
               {user && (
                 <p className="empty-state__description text-secondary">

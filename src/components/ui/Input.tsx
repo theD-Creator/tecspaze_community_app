@@ -30,20 +30,16 @@ export const Input: React.FC<InputProps> = ({
           {label}
         </label>
       )}
-      <div className="relative">
-        {leftIcon && (
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted">
-            {leftIcon}
-          </div>
-        )}
+      <div className="input-shell">
+        {leftIcon && <div className="input-icon input-icon--left">{leftIcon}</div>}
         <input
           id={inputId}
           className={clsx(
             'input',
             {
               'input--error': hasError,
-              'pl-10': leftIcon,
-              'pr-10': rightIcon,
+              'input--has-left': leftIcon,
+              'input--has-right': rightIcon,
             },
             className
           )}
@@ -52,11 +48,7 @@ export const Input: React.FC<InputProps> = ({
           aria-describedby={hasError ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined}
           {...props}
         />
-        {rightIcon && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-muted">
-            {rightIcon}
-          </div>
-        )}
+        {rightIcon && <div className="input-icon input-icon--right">{rightIcon}</div>}
       </div>
       {hasError ? (
         <p id={`${inputId}-error`} className="input-error">

@@ -19,9 +19,11 @@
 }
 
 .employees-title {
-  font-size: var(--font-size-2xl);
+  font-size: clamp(1.5rem, 3vw, 1.85rem);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-xs);
+  position: relative;
+  padding-left: 16px;
 }
 
 .employees-subtitle {
@@ -250,11 +252,6 @@
   .employees-filters {
     flex-direction: column;
     gap: var(--spacing-sm);
-  }
-  
-  .employees-search {
-    flex-direction: column;
-    align-items: stretch;
   }
   
   .employees-search__input {

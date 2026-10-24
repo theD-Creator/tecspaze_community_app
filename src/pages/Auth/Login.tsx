@@ -91,6 +91,11 @@ export const LoginPage: React.FC = () => {
         <Card className="auth-card">
           <Card.Body>
             <div className="auth-header">
+              <img
+                src="/images/logos/tecspaze-claim-lok-verlauf.svg"
+                alt="TECSPAZE"
+                className="auth-logo"
+              />
               <h1 className="auth-title">{t('auth.login.title')}</h1>
               <p className="auth-subtitle text-secondary">{t('auth.login.subtitle')}</p>
             </div>

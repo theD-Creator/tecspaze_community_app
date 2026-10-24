@@ -15,8 +15,25 @@
 }
 
 .community-title {
-  font-size: var(--font-size-2xl);
+  font-size: clamp(1.5rem, 3vw, 1.85rem);
   font-weight: var(--font-weight-bold);
+  position: relative;
+  padding-left: 16px;
+}
+
+.community-title::before,
+.employees-title::before,
+.ratings-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 55%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 76%;
+  border-radius: var(--radius-full);
+  background: var(--gradient-brand);
+  box-shadow: 0 0 14px rgba(0, 190, 210, 0.45);
 }
 
 /* Filters */
@@ -235,8 +252,7 @@
   }
   
   .community-search {
-    flex-direction: column;
-    align-items: stretch;
+    gap: var(--spacing-sm);
   }
   
   .community-search__input {
